@@ -9,35 +9,42 @@
   </head>
 
   <body>
-    <center><h1>Search for Bars in your City</h1></center>
-    <br />
-    <br />
-    <br />
-    
-    <center><input id="input" placeholder="Name a City" type="text" /></center>
-    <center><button id="button">Search</button></center>
+    <div class="main-container">
 
-    <br>
-    <br>
-    <center><h1>Search for Bars in your State</h1></center>
-    <center><input id="state-input" placeholder="Name a State" type="text" /></center>
-    <center><button id="state-button">Search</button></center>
+    <div class="search">
+        <div>
+            <center><h1>Search for Bars by Name</h1></center>
+            <center><input id="name-input" placeholder="Name a Bar" type="text" /></center>
+            <center><button id="name-button">Search</button></center>
+        </div>  
+        <div>
+            <center><h1>Search for Bars in your City</h1></center>
+            <center><input id="input" placeholder="Name a City" type="text" /></center>
+            <center><button id="button">Search</button></center>
+        </div>
+        <div>
+            <center><h1>Search for Bars in your State</h1></center>
+            <center><input id="state-input" placeholder="Name a State" type="text" /></center>
+            <center><button id="state-button">Search</button></center>
+        </div>    
+    </div>
 
     <div class="container">
 
         <div id="barName"></div>
-
         
-        <div class="container2">
-            
-            <div id="result1"></div>
+    <div class="container2">
+        
+        <div id="result1"></div>
     
-        </div>
+    </div>
+
+
     </div>
     
+    <div src="result3"></div>
     
-    
-
+    </div>
     
 
     <script src="app.js"></script>
