@@ -1,8 +1,9 @@
 const brewName = document.getElementById("bar-name");
 const brewCity = document.getElementById("city-name");
 
-let li = document.createElement("demo");
-let ul = document.getElementById("more-demo");
+// let li = document.createElement("demo");
+// let ul = document.getElementById("list");
+
 
 let clearButton = document.getElementById("clear-button");
 clearButton.addEventListener('click', clearOut);
@@ -27,82 +28,100 @@ let parseObject = "";
 
 // by City
 function byCity() {
+    clearOut()
     // console.log(searchInput.value)
-    let xhttp = new XMLHttpRequest();
 
-    let url = `https://api.openbrewerydb.org/breweries?by_city=${cityInput.value}`;
+    if (cityInput.value) {
+        let xhttp = new XMLHttpRequest();
 
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
-            parseObject = JSON.parse(this.responseText);
-            // console.log(parseObject.url);
+        let url = `https://api.openbrewerydb.org/breweries?by_city=${cityInput.value}`;
 
-            for (let brew of parseObject) {
-                console.log(`brew`, brew.name);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                parseObject = JSON.parse(this.responseText);
 
-                brewName.innerText = document.getElementById("bar-name").innerText + '\n' + brew.name;
-                brewCity.innerText = document.getElementById("city-name").innerText + '\n' + brew.city;
+                for (let brew of parseObject) {
+                    // console.log(`brew`, brew.name)
+
+                    brewName.innerText = document.getElementById("bar-name").innerText + '\n' + brew.name;
+                    brewCity.innerText = document.getElementById("city-name").innerText + '\n' + brew.city;
+                }
+
+            } else if (this.status == 404) {
+                console.log("Not found!");
             }
+            cityInput.value = '';
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
 
-        } else if (this.status == 404) {
-            console.log("Not found!");
-        }
-        cityInput.value = '';
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
 };
 
 // by State
 function byState() {
-    let xhttp = new XMLHttpRequest();
+    clearOut()
 
-    let url = `https://api.openbrewerydb.org/breweries?by_state=${stateInput.value}`;
+    if (stateInput.value) {
+        let xhttp = new XMLHttpRequest();
 
-    xhttp.onreadystatechange = function () {
-        console.log("hit");
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
-            parseObject = JSON.parse(this.responseText);
-            // console.log(parseObject.url);
+        let url = `https://api.openbrewerydb.org/breweries?by_state=${stateInput.value}`;
 
-            for (let brew of parseObject) {
-                console.log(`brew`, brew.name);
+        xhttp.onreadystatechange = function () {
+            console.log("hit");
+            if (this.readyState == 4 && this.status == 200) {
+                // console.log(JSON.parse(this.responseText));
+                parseObject = JSON.parse(this.responseText);
+                // console.log(parseObject.url);
 
-                brewName.innerText = document.getElementById("bar-name").innerText + '\n' + brew.name;
-                brewCity.innerText = document.getElementById("city-name").innerText + '\n' + brew.city;
+                for (let brew of parseObject) {
+                    // console.log(`brew`, brew.name);
+                    // const brewName = document.getElementById("bar-name");
+                    brewName.innerText = document.getElementById("bar-name").innerText + '\n' + brew.name;
+                    brewCity.innerText = document.getElementById("city-name").innerText + '\n' + brew.city;
+                }
+
+            } else if (this.status == 404) {
+                console.log("Not found!");
             }
-
-        } else if (this.status == 404) {
-            console.log("Not found!");
-        }
-        stateInput.value = '';
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
+            stateInput.value = '';
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
 };
 
 //by Name
 function byName() {
+    clearOut()
+
+    if(nameInput.value) {
     let xhttp = new XMLHttpRequest();
-    
+
     let url = `https://api.openbrewerydb.org/breweries?by_name=${nameInput.value}`;
 
     xhttp.onreadystatechange = function () {
         console.log("hit");
         if (this.readyState == 4 && this.status == 200) {
-            console.log(JSON.parse(this.responseText));
+
             parseObject = JSON.parse(this.responseText);
             // console.log(parseObject.url);
+
+
+            // console.log(`li`, li);
 
             for (let brew of parseObject) {
                 console.log(`brew`, brew.name);
 
+                //Creating new LI's
+                // let li = document.createElement('li')
+                // li.innerText = brew.name + ', ' + brew.city
+                // ul.appendChild(li)
+
                 brewName.innerText = document.getElementById("bar-name").innerText + '\n' + brew.name;
                 brewCity.innerText = document.getElementById("city-name").innerText + '\n' + brew.city;
             }
-                
+
         } else if (this.status == 404) {
             console.log("Not found!");
         }
@@ -110,8 +129,10 @@ function byName() {
     };
     xhttp.open("GET", url, true);
     xhttp.send();
+    }
 };
 
+// Clear listings
 function clearOut() {
 
     while (brewName.hasChildNodes()) {
@@ -121,4 +142,4 @@ function clearOut() {
     while (brewCity.hasChildNodes()) {
         brewCity.firstChild.remove();
     }
-}
+};
